@@ -1,5 +1,6 @@
 package com.ininmm.callbackmodel;
 
+import android.location.Location;
 import android.util.Log;
 
 import java.util.concurrent.atomic.AtomicReference;
@@ -12,6 +13,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public class CallbackListener {
     interface OnClickListener {
         void onClick(int i);
+        void onGPSTracker(Location location);
     }
 
     private AtomicReference<OnClickListener> clickListener = new AtomicReference<>();
@@ -25,6 +27,10 @@ public class CallbackListener {
         clickListener.get().onClick(i);
     }
 
+    public void getOnGPStracker(Location location) {
+        clickListener.get().onGPSTracker(location);
+    }
+
     public void removeOnClickListener() {
 //        this.clickListener = null;
         clickListener.set(null);
@@ -33,8 +39,6 @@ public class CallbackListener {
     public void doClick() {
         Log.i("CallbackListener", "doClick: ");
         try {
-            Log.i("CallbackListener", "Thread sleep: 5000");
-            Thread.sleep(5000);
         } catch (Exception e) {
             e.printStackTrace();
         }
